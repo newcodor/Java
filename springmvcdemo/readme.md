@@ -9,7 +9,7 @@
  
 - 数据库：mysql5.1+
 
-- 数据库连接池：c3p0
+- 数据库导入文件：database/springmvc.sql
 
 - springmvc配置文件：springmvc.xml
 
