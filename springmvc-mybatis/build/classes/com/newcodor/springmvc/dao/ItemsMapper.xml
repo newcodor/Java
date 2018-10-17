@@ -254,8 +254,10 @@
     update items
     set name = #{name,jdbcType=VARCHAR},
       price = #{price,jdbcType=REAL},
-      pic = #{pic,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP},
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+       createtime = #{createtime,jdbcType=TIMESTAMP},
       detail = #{detail,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

@@ -6,4 +6,8 @@ import com.newcodor.springmvc.entity.Items;
 
 public interface ItemService {
 	List<Items>  selectItemList();
+	
+	public Items selectItemById(Integer id);
+	
+	public boolean  updateItem(Items item);
 }
