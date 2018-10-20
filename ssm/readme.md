@@ -7,7 +7,7 @@
 
 - 框架：spring、springmvc、mybatis
 - 
-- 数据库连接池：dbcp
+- 数据库连接池：druid
  
 - 数据库：mysql5.1+
 
