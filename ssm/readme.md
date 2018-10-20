@@ -1,5 +1,5 @@
 ## 说明 ##
-练习用的springmvc整合mybatis
+ssm框架
 
 首次创建时间：2018年10月18日
 
@@ -11,7 +11,7 @@
  
 - 数据库：mysql5.1+
 
-- 数据库导入文件：database/springmvc.sql
+- 数据库导入文件：database/crm.sql
 
 - springmvc配置文件：springmvc.xml
 
