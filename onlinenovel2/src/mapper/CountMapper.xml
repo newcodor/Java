@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ly.novel.dao.CountMapper" >
+	<insert id="addCount" parameterType="Integer" >
+		insert into count (bid,accessCount,replyCount) values(#{bid},0,0)
+	</insert>
+	
+	<update id="updateAccessCount"  parameterType="Integer">
+		update count set accessCount=accessCount+1 where bid=#{bid}
+	</update>
+	
+	<update id="updateReplyCount"  parameterType="Integer">
+		update count set replyCount=replyCount+1  where bid=#{bid}
+	</update>
+	
+	<delete id="delCountByBid"  parameterType="Integer">
+		delete from count where bid=#{bid}
+	</delete>
+	
+	
+</mapper>

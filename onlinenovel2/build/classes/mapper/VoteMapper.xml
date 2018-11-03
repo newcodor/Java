@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ly.novel.dao.VoteMapper" >
+
+
+  <update id="addVote"  parameterType="Integer">
+  update vote set voteCount=voteCount+1 where bid=#{bid}
+  </update>
+	
+ <insert id="addUserVote">
+ insert into user_vote (userid,bid,voteTime) values(#{userid},#{bid},#{voteTime})
+ </insert>
+ 
+ <select id="queryUserVoteById"  resultType="Integer">
+ select count(1)   from user_vote where userid=#{userid} and bid=#{bid}
+ </select>
+ 
+ <delete id="delVoteByBid" parameterType="Integer" >
+ delete from vote where bid=#{bid}
+ </delete>
+ 
+ <delete id="delUserVoteByBid" parameterType="Integer">
+ delete from user_vote where bid=#{bid}
+ </delete>
+ 
+ <insert id="createVote" parameterType="Integer">
+ insert into vote(bid,voteCount) values(#{bid},0)
+ </insert>
+ 
+ <delete id="delUserVoteByUid" parameterType="Integer">
+ 
+ delete from user_vote where userid=#{userid}
+ </delete>
+ 
+</mapper>

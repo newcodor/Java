@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ly.novel.dao.NovelMapper" >
+	<insert id="addNovel"  parameterType="Novel">
+		insert into book(userid,bookname,bookintroduction,cid,postip,posttime) 
+		values(#{userid},#{bookname},#{bookintroduction},#{cid},#{postip},#{posttime})
+	</insert>
+	
+	<select id="queryAllNovels"  resultType="NovelVo">
+		select b.aid,c.categoryname,b.userid,u.username,ct.accessCount,ct.replyCount,v.voteCount,b.bookname,b.posttime from book b,user u,count ct,category c,vote v 
+		 where b.bid=ct.bid and b.userid=u.userid and c.cid=b.cid and b.bid=v.bid 
+		 order by posttime desc
+	</select>
+	
+	<select id="queryNovelsByPage"  resultType="NovelVo">
+	select b.bid,c.categoryname,b.userid,u.username,ct.accessCount,ct.replyCount,v.voteCount,b.bookname,b.posttime from book b,user u,count ct,category c,vote v  
+	where b.bid=ct.bid and b.userid=u.userid and b.cid=c.cid and b.bid=v.bid 
+	<where>
+	
+	 and  bookname like "%"#{keyword}"%"
+	 <if test="cid !=0">
+	 and c.cid=#{cid} 
+	 </if>
+	 order by posttime desc limit #{beginIndex},#{everyPage}
+	</where>
+	</select>
+	
+	<select id="queryNovelById"  parameterType="Integer"  resultType="NovelVo">
+	select b.bid,b.cid,b.status,c.categoryname,
+	v.voteCount,b.userid,u.username,u.sex,b.bookname,
+	b.bookintroduction,b.posttime from book b,user u,
+	category c,vote v where b.userid=u.userid 
+	and c.cid=b.cid and b.bid=v.bid and b.bid=#{bid}
+	</select>
+	
+	<select id="getNovelsCount" resultType="Integer">
+		select count(1)  from book
+	</select>
+	
+	<insert id="addCategory">
+		insert into category(categoryname,createtime) values(#{categoryname},#{createtime})
+	</insert>
+	
+	<select id="queryAllCategorys" resultType="category">
+		select * from category order by createtime desc
+	</select>
+	
+	<delete id="delCategory" parameterType="Integer">
+		delete from category where cid=#{cid}
+	</delete>
+	
+	<select id="queryChaptersByPage"  resultType="Chapter">
+		select * from chapter    
+		where bid=#{bid} 
+		order by posttime asc limit #{beginIndex},#{everyPage}
+	
+	</select>
+	
+	<select id="getChapterCount"  parameterType="Integer" resultType="Integer">
+		select count(1) from chapter where bid=#{bid}
+	</select>
+	
+	<select id="queryAllBookSelfsByUserId" parameterType="Integer"  resultType="BookSelfVo">
+		select DISTINCT bs.userid,u.username,c.bid,b.bookname,c.chaid,c.title,c.posttime  
+		 from user u,book b,chapter c,bookself bs  
+		 where u.userid=b.userid  and b.bid=c.bid   
+		 and c.chaid in(select MAX(chaid) from 
+		 chapter GROUP BY bid HAVING  bid in(select bookself.bid from bookself 
+		 where bookself.userid=#{userid})) order by posttime desc
+	</select>
+	
+	<select id="queryBookSelfById" resultType="Integer">
+	select count(1)  from bookself where userid=#{userid} and bid=#{bid}
+	</select>
+	
+	<insert id="addBookSelf">
+		insert into bookself(userid,bid,addTime) values(#{userid},#{bid},#{addTime})
+	</insert>
+	
+	<delete id="delBookSelf">
+	delete from bookself where userid=#{bid} and bid in
+	<foreach collection="array" item="bids"  open="(" close=")"  separator=",">
+		#{bids}
+	</foreach>
+	</delete>
+	
+	<insert id="addReviewNovel"  parameterType="Review">
+	insert into review(userid,cid,bookname,bookintroduction,bookSampleDraft,reviewStatus,applyTime,postip)   
+	 values(#{userid},#{cid},#{bookname},#{bookintroduction},#{bookSampleDraft},#{reviewStatus},#{applyTime},#{postip})
+	</insert>
+	
+	<select id="queryAllNovelsByUserid"  parameterType="Integer"  resultType="Novel">
+	select b.bid, u.userid, b.cid, b.bookname,b.bookintroduction,b.status,b.posttime,b.postip from book b,user u 
+	  where u.userid=b.userid and u.userid=#{userid}
+	</select>
+	
+	<delete id="delReview">
+	delete from review where rid=#{rid} and userid=#{userid}
+	</delete>
+	
+	<update id="updateReviewReviewStatus">
+	update review  set reviewStatus=#{reviewStatus} where rid=#{rid} and userid=#{userid}
+	</update>
+	
+	
+	<select id="queryReviewById"  resultType="Review">
+	select *  from review where rid=#{rid} and userid=#{userid}
+	</select>
+	
+	<update id="finishNovelById" parameterType="Integer">
+	update book set status='已完本' where bid=#{bid}
+	</update>
+	
+	<delete id="delNovelByBid" parameterType="Integer">
+	delete from book where bid=#{bid}
+	</delete>
+	
+	<delete id="delBookSelfByBid" parameterType="Integer">
+	delete from bookself where bid=#{bid}
+	</delete>
+	
+	<select id="queryAllReviews"  resultType="ReviewVo">
+	select r.rid,r.userid,u.username,r.bookname,r.reviewStatus,r.applyTime from review r,user u   
+	 where r.userid=u.userid 
+	 order by applyTime desc
+	</select>
+	
+	<select id="queryAllReviewById"  parameterType="Integer"  resultType="ReviewVo">
+	select r.rid,r.userid,r.cid,c.categoryname,r.bid,u.username,r.bookname,r.bookintroduction,r.bookSampleDraft,r.reviewStatus,r.postip,r.applyTime from review r,category c,user u  
+	where r.cid=c.cid and r.rid=#{rid}
+	</select>
+	
+	<update id="updateNovel"  parameterType="Novel">
+	update book  set cid=#{cid},bookname=#{bookname},bookintroduction=#{bookintroduction}  where bid=#{bid}
+	</update>
+	
+	<delete id="delNovelByUid" parameterType="Integer">
+	delete from book where userid=#{userid}
+	</delete>
+	
+	<select id="queryNovelBidByUid"  parameterType="Integer"  resultType="Integer">
+	select bid from book where userid=#{userid}
+	</select>
+	
+	<delete id="delBookSelfByUid" parameterType="Integer">
+	delete from bookself where userid=#{userid}
+	</delete>
+	
+	<delete id="delReviewNovelByUid"  parameterType="Integer">
+	delete from review where userid=#{userid}
+	</delete>
+	
+	<select id="queryAllNovelsByPage"  parameterType="Page"  resultType="NovelVo">
+	select b.bid,c.categoryname,b.userid,u.username,ct.accessCount,ct.replyCount,v.voteCount,b.bookname,b.posttime from book b,user u,count ct,category c,vote v 
+	 where b.bid=ct.bid and b.userid=u.userid and b.cid=c.cid and b.bid=v.bid 
+	  order by posttime desc limit #{beginIndex},#{everyPage}
+	</select>
+	
+	<select id="querySearchNovelsByPage" resultType="NovelVo">
+	select b.bid,c.categoryname,b.userid,u.username,ct.accessCount,ct.replyCount,v.voteCount,b.bookname,b.posttime from book b,user u,count ct,category c,vote v  
+	 where b.bid=ct.bid and b.userid=u.userid and b.cid=c.cid and b.bid=v.bid  
+	 and  bookname like '%'#{keyword}'%' 
+	  union select b.bid,c.categoryname,b.userid,u.username,ct.accessCount,ct.replyCount,v.voteCount,b.bookname,b.posttime from book b,user u,count ct,category c,vote v   
+	    where b.bid=ct.bid and b.userid=u.userid and b.cid=c.cid and b.bid=v.bid  
+	    an d  u.username like '%'#{keyword}'%' 
+	    order by posttime desc limit #{page.beginIndex},#{page.everyPage}
+	  
+	</select>
+	
+	<select id="queryCategoryNovelsByCid"  resultType="NovelVo">
+	select b.bid,c.categoryname,b.userid,u.username,ct.accessCount,ct.replyCount,v.voteCount,b.bookname,b.posttime from book b,user u,count ct,category c,vote v  
+	where b.bid=ct.bid and b.userid=u.userid and b.cid=c.cid and b.bid=v.bid 
+	 and  b.cid=#{cid} 
+	 order by posttime desc limit #{page.beginIndex},#{page.everyPage}
+	</select>
+	
+</mapper>

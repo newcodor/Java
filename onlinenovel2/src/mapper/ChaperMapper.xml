@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ly.novel.dao.ChapterMapper" >
+
+	<select id="queryChapterVo" resultType="ChapterVo">
+	select c.chaid,c.bid,b.userid,b.cid,cn.categoryname,u.username,b.bookname,c.title,c.contents,c.posttime  from book b,category cn,chapter c,user u  
+	<where>
+	u.userid=b.userid and b.cid=cn.cid and b.bid=c.bid 
+	<if test="bid !=null">
+	and b.bid=#{bid}
+	</if>
+	<if test="chaid !=null">
+	 and c.chaid=#{chaid}
+	</if>
+	</where>
+	</select>
+	
+	<select id="queryfrontChapterId"  resultType="Integer">
+	select IFNULL((select max(chaid) as front from   
+	chapter where 
+	bid=#{bid} 
+	<![CDATA[ and  chaid < #{chaid}),#{chaid})]]>
+	</select>
+
+	<select id="querynextChapterId"  resultType="Integer">
+	select IFNULL((select min(chaid) as next from chapter 
+	<![CDATA[ where bid=#{bid} and  chaid >#{chaid}),#{chaid})]]>
+	</select>
+
+
+	<insert id="addChapter"  parameterType="Chapter">
+	insert into chapter(bid,title,contents,posttime)
+	 values(#{bid},#{title},#{contents},#{posttime})
+	</insert>
+	
+	<update id="updateChapter" parameterType="Chapter">
+	update chapter set title=#{title},contents=#{contents} where bid=#{bid} and chaid=#{chaid}
+	</update>
+	
+	<delete id="delChapter">
+	delete from chapter  where bid=#{bid} and chaid=#{chaid}
+	</delete>
+
+	<delete id="delChapterByBid"  parameterType="Integer">
+	delete from chapter where bid=#{bid}
+	</delete>
+
+</mapper>
