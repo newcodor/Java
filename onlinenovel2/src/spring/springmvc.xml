@@ -15,16 +15,16 @@
 	
 
 	<mvc:annotation-driven />
-	<mvc:resources location="/common/static/css/" mapping="/common/static/**"/>
-	<mvc:resources location="/common/static/js/" mapping="/common/static/**"/>
+	<mvc:resources location="/common/static/css/" mapping="/common/static/css/**"/>
+	<mvc:resources location="/common/static/js/" mapping="/common/static/js/**"/>
 	<mvc:resources location="/fonts/" mapping="/fonts/**"/>
 	
 	
 	<!-- 视图解析器 -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	 <property name="prefix" value="/WEB-INF/jsp/"></property>
 	 <property name="suffix" value=".jsp"></property>
-	</bean>
+	</bean> -->
 	
 	<!-- 上传图片实现类-->
 <!-- 	

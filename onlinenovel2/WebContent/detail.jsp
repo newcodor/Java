@@ -2,12 +2,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="common/static/css/bootstrap.min.css">
-<link rel="stylesheet" href="common/static/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap-theme.min.css">
 <title>求小说</title>
 <style>
  body{
@@ -50,7 +52,7 @@
     color:#000;
  }
 </style>
-<script src="common/static/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
    function setBid(){
 	   var bid1=document.getElementById("bid").value;
@@ -72,8 +74,7 @@
 
 			  $("#addBookSelf").click(function(){
 				  
-			  $.post("bookSelfServlet",{
-				  action:"add",
+			  $.post("${pageContext.request.contextPath}/user/bookself/add",{
 				  bid:$("#bid").text()
 			  },
 			  function(data,Status){
@@ -95,7 +96,7 @@
 			  
 			  $("#addVote").click(function(){
 				  
-				  $.post("voteServlet",{
+				  $.post("${pageContext.request.contextPath}/vote/add",{
 					  bid:$("#bid").text()
 				  },
 				  function(data,Status){
@@ -123,8 +124,8 @@
 <%
 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 %>
-<c:if test="${requestScope.from!='novelQueryServlet'}">
-  <jsp:forward page="novelQueryServlet?bid=${param.bid}&action=query&fromPage=detail"></jsp:forward>
+<c:if test="${requestScope.origin!='forward'}">
+  <jsp:forward page="${pageContext.request.contextPath}/novel/query?bid=${param.bid}&fromPage=detail"></jsp:forward>
 </c:if>
   <c:choose>
   	<c:when test="${null!=novelVo}">
@@ -140,7 +141,7 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     			<p>${novelVo.bookintroduction}</p>
     		</div>
     		<p class="meta">分类：
-    		<a href="novelQueryPageServlet?cid=${novelVo.cid}&categoryname=${novelVo.categoryname}&action=category&fromPage=category" target="mainFrame">${novelVo.categoryname}</a>
+    		<a href="${pageContext.request.contextPath}/novel/category/query?cid=${novelVo.cid}&categoryname=${novelVo.categoryname}&fromPage=category" target="mainFrame">${novelVo.categoryname}</a>
     		</p>
     		<p class="meta">投票总数：<span id="vote">${novelVo.voteCount}</span></p>
     		<button id="addBookSelf"  class="btn btn-info" >加入书架</button>
@@ -158,8 +159,8 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
   <c:when test="${requestScope.page.list.size()>0}">
   <c:forEach items="${requestScope.page.list}"  var="chapter" varStatus="status">
   <tr>
-  	<td style="text-align: left"><a href="chapter.jsp?bid=${chapter.bid}&chaid=${chapter.chaid}&fromPage=chapter" target="_blank">${chapter.title}</a></td>
-  	<td>${chapter.posttime }</td>
+  	<td style="text-align: left"><a href="${pageContext.request.contextPath}/chapter/read/${chapter.bid}/${chapter.chaid}.html" target="_blank">${chapter.title}</a></td>
+  	<td><fmt:formatDate value="${chapter.posttime }"  pattern="yyyy-MM-dd HH:mm"/></td>
   </tr>
   </c:forEach>
   </c:when>
@@ -180,12 +181,12 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     	 首页
     	</c:when>
     	<c:otherwise>
-    	<a href="novelQueryServlet?currentPage=1&bid=${requestScope.bid}&action=query&fromPage=detail">首页</a>
+    	<a href="${pageContext.request.contextPath}/novel/query?currentPage=1&bid=${requestScope.bid}&fromPage=detail">首页</a>
     	</c:otherwise>
     	</c:choose>
     	<c:choose>
     	<c:when test="${page.hasPrePage}">
-    	<a href="novelQueryServlet?currentPage=${page.currentPage-1}&action=query&bid=${requestScope.bid}&fromPage=detail">上一页</a>
+    	<a href="${pageContext.request.contextPath}/novel/query?currentPage=${page.currentPage-1}&bid=${requestScope.bid}&fromPage=detail">上一页</a>
     	</c:when>
     	<c:otherwise>
     	上一页
@@ -196,7 +197,7 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     	</c:if>
     	<c:choose>
     	<c:when test="${page.hasNextPage}">
-    	<a href="novelQueryServlet?currentPage=${page.currentPage+1}&action=query&bid=${requestScope.bid}&fromPage=detail">下一页</a>
+    	<a href="${pageContext.request.contextPath}/novel/query?currentPage=${page.currentPage+1}&bid=${requestScope.bid}&fromPage=detail">下一页</a>
     	</c:when>
     	<c:otherwise>
     	下一页
@@ -207,7 +208,7 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     	末页
     	</c:when>
     	<c:otherwise>
-    	<a href="novelQueryServlet?currentPage=${page.totalPage}&action=query&bid=${requestScope.bid}&fromPage=detail">末页</a>
+    	<a href="${pageContext.request.contextPath}/novel/query?currentPage=${page.totalPage}&bid=${requestScope.bid}&fromPage=detail">末页</a>
     	</c:otherwise>
     	</c:choose>
     	</center>
@@ -239,7 +240,7 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     ${ri.city}
     </p>
     </td>
-    <td  height="10%">评论时间: ${ri.replytime}</td>
+    <td  height="10%">评论时间: <fmt:formatDate value="${ri.replytime}"  pattern="yyyy-MM-dd HH:mm:ss"/></td>
     <td align="right">#${status.index+1}楼</td>
     </tr>
     <tr>

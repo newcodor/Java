@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="common/static/css/bootstrap.min.css" rel="stylesheet">
-<link href="common/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <title>个人资料</title>
 <style type="text/css">
    .bg{
@@ -25,10 +25,10 @@
 }
 </style>
 </head>
-<script src="common/static/js/jquery-3.2.1.min.js"></script>
-<script src="common/static/js/bootstrap.js"></script>
-<script src="common/static/js/bootstrap-datetimepicker.min.js"></script>
-<script src="common/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript">
 $(document).ready(
 		   function(){
@@ -47,15 +47,15 @@ $("#birthday").datetimepicker({
 		   });
 </script>
 <body class="bg">
-<c:if test="${param.from!=\"userServlet\"}">
-  <jsp:forward page="../userServlet?userid=${param.userid}&action=query&fromPage=admin/updateUser"></jsp:forward>
+<c:if test="${origin!=\"forward\"}">
+  <jsp:forward page="/user/query?userid=${param.userid}&fromPage=admin/updateUser"></jsp:forward>
 </c:if>
 <br>
 <left><button style="margin-left:5px" onclick="window.history.go(-1)"  class="btn btn-primary">返回</button></left>
 <div class="main-text-wrap">
 <center>
 <div class="form-inline">
-<form action="userServlet"  method="post">
+<form action="${pageContext.request.contextPath}/user/update"  method="post">
 <table class="table" >
 	<thead >
 		<tr >
@@ -117,7 +117,6 @@ $("#birthday").datetimepicker({
 	</tbody>
 </table>
 <input type="hidden" name="userid" value="${requestScope.currentUser.userid}">
-<input type="hidden" name="action" value="update">
 <input type="hidden" name="fromPage" value="admin/updateUser">
 </form>
 </div>

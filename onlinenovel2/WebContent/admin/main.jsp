@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
 <title>主页</title>
 </head>
 <style type="text/css">

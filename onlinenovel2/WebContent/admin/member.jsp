@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
 <title>用户管理</title>
 </head>
 <style type="text/css">
@@ -67,8 +67,8 @@ function  delUser(){
          	<td><center>${user.sex}</center></td>
          	<td><center>${user.city}</center></td>
          	<td><center>${user.email}</center></td>
-         	<td><center><a href="userServlet?userid=${user.userid}&action=query&fromPage=admin/updateUser">修改</a></center></td>
-         	<td><center><a href="userServlet?userid=${user.userid}&role=${user.role}&action=del&fromPage=admin/member.jsp"  onclick="return delUser()">删除</a></center></td>
+         	<td><center><a href="${pageContext.request.contextPath}/user/query?userid=${user.userid}&fromPage=admin/updateUser">修改</a></center></td>
+         	<td><center><a href="${pageContext.request.contextPath}/user/delete?userid=${user.userid}&role=${user.role}"  onclick="return delUser()">删除</a></center></td>
          </tr>
        </c:forEach>
     </c:when>

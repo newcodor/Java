@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
 <title>我的书架</title>
 </head>
 <style>
@@ -19,7 +19,7 @@
 }
 
 </style>
-<script src="common/static/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 function  checkSelectedData(){
 	var cs = document.getElementsByName("selecedNovel");
@@ -57,8 +57,8 @@ function rl(aid) {
 
 </script>
 <body>
-<c:if test="${fromPage!=\"bookSelfServlet\"}">
-  <jsp:forward page="bookSelfServlet?action=query"></jsp:forward>
+<c:if test="${origin!=\"forward\"}">
+  <jsp:forward page="${pageContext.request.contextPath}/user/bookself/list"></jsp:forward>
 </c:if>
 <div>
 <form action="bookSelfServlet?action=del" method="post" onsubmit="return checkSelectedData()">
@@ -79,8 +79,8 @@ function rl(aid) {
   <c:when test="${null!=requestScope.bookSelfVos}">
      <c:forEach items="${requestScope.bookSelfVos}"  var="bookSelfVo" >
         <tr>
-        	<td><input type="checkbox" name="selecedNovel" value="${bookSelfVo.bid}">&nbsp;&nbsp;&nbsp;<a href="detail.jsp?bid=${bookSelfVo.bid}&fromPage=detail" target="_blank">${bookSelfVo.bookname}</a></td>
-        	<td><a href="chapter.jsp?bid=${bookSelfVo.bid}&chaid=${bookSelfVo.chaid}&fromPage=chapter" target="_blank">${bookSelfVo.title}</a></td>
+        	<td><input type="checkbox" name="selecedNovel" value="${bookSelfVo.bid}">&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/novel/query?bid=${bookSelfVo.bid}&fromPage=detail" target="_blank">${bookSelfVo.bookname}</a></td>
+        	<td><a href="${pageContext.request.contextPath}/chapter/read/${bookSelfVo.bid}/${bookSelfVo.chaid}.html" target="_blank">${bookSelfVo.title}</a></td>
         	<td>${bookSelfVo.username}</td>
         	<td>${bookSelfVo.posttime}</td>
         </tr>

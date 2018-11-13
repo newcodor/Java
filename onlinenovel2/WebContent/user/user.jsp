@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
 <title>个人中心</title>
 </head>
 	 <frameset cols="15%,*"  framespacing="1"  frameborder="no" border="1"  >
 	    <frame src="left.jsp"    name="leftFrame"    scrolling="no"   noresize="noresize"   id="leftFrame"/>
-	    <frame src="../userInfo.jsp"    name="userMainFrame"    scrolling="yes"   noresize="noresize"   id="userMainFrame"/>
+	    <frame src="userInfo.jsp"    name="userMainFrame"    scrolling="yes"   noresize="noresize"   id="userMainFrame"/>
 	</frameset>
 
  <noframes>

@@ -10,7 +10,7 @@
 	
 	<insert id="addReply" parameterType="Reply"  >
 	insert into reply(bid,userid,replycontents,replytime,replyip) 
-	values(#{bid},#{userid},#{replycontents},#{replytime},#{replyip})
+	   values(#{bid},#{userid},#{replycontents},#{replytime},#{replyip})
 	</insert>
 	
 	<delete id="delReplyByBid"  parameterType="Integer">

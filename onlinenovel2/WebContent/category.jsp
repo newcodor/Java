@@ -8,8 +8,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="common/static/css/bootstrap.min.css">
-<link rel="stylesheet" href="common/static/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap-theme.min.css">
 <title>${categoryname}</title>
 <style type="text/css">
 
@@ -41,9 +41,9 @@
 
 </head>
 <body >
-    <c:if test="${from!=\"novelQueryPageServlet\"}">
+    <c:if test="${origin!=\"forward\"}">
     <%request.setCharacterEncoding("utf-8"); %>
-        <jsp:forward page="novelQueryPageServlet?cid=${cid}&categoryname=${categoryname}&action=category&fromPage=category"></jsp:forward>
+        <jsp:forward page="${pageContext.request.contextPath}/novel/category/query?cid=${cid}&categoryname=${categoryname}&fromPage=category"></jsp:forward>
     </c:if>
 <div class="main-text-wrap,bgmain" style="text-align: center">
 <center>
@@ -65,7 +65,7 @@
   <c:when test="${requestScope.page.list.size()>0}">
   <c:forEach items="${requestScope.page.list}"  var="novelVo" varStatus="status">
   <tr>
-  	<td style="text-align: left"><a href="detail.jsp?bid=${novelVo.bid}&fromPage=detail" target="mainFrame">${novelVo.bookname}</a></td>
+  	<td style="text-align: left"><a href="${pageContext.request.contextPath}/novel/query?bid=${novelVo.bid}&fromPage=detail" target="mainFrame">${novelVo.bookname}</a></td>
   	<td >${novelVo.username }</td>
   	<td>${novelVo.accessCount}</td>
   	<td>${novelVo.voteCount}</td>

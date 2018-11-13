@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
 <title>发表新书</title>
 </head>
 <style>
@@ -20,7 +20,7 @@
               
 }
 </style>
-<script src="common/static/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 function checkApplyInfo(){
 	if($("#bookname").val()==""){
@@ -40,7 +40,7 @@ function checkApplyInfo(){
 <div class="apply-main-text-wrap">
 <h3><strong>发布新书</strong></h3>
 <br>
-<form action="../novelServlet" method="post" onsubmit="return checkApplyInfo()">
+<form action="${pageContext.request.contextPath}/novel/add" method="post" onsubmit="return checkApplyInfo()">
   <table class="table" >
   <tbody>
    <tr>
@@ -69,7 +69,6 @@ function checkApplyInfo(){
    </tr>
   </tbody>
   </table>
-  <input type="hidden" name="action" value="add">
 </form>
 </div>
 </center>

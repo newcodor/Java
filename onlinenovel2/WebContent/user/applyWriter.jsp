@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
 <title>作家申请</title>
 </head>
 <style>
@@ -20,7 +20,7 @@
               
 }
 </style>
-<script src="../common/static/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 function checkApplyInfo(){
 	if($("#bookname").val()==""){
@@ -45,7 +45,7 @@ function checkApplyInfo(){
 <p>
 申请成为作家并发布作品需要提供发布的作品信息及供审核所用的样稿(500字以内)
 </p>
-<form action="../novelApplyServlet" method="post" onsubmit="return checkApplyInfo()">
+<form action="${pageContext.request.contextPath}/user/apply" method="post" onsubmit="return checkApplyInfo()">
   <table class="table" >
   <tbody>
    <tr>
@@ -78,7 +78,6 @@ function checkApplyInfo(){
    </tr>
   </tbody>
   </table>
-  <input type="hidden"  name="action"  value="apply">
 </form>
 </div>
 </center>

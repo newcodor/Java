@@ -1,5 +1,6 @@
 package com.ly.novel.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class BookMarkServiceImpl implements BookMarkService {
 		// TODO Auto-generated method stub
 		int resultStatus=0;
 		if(!queryBookMarkById(userid,bid,chaid)){
-			if(bookMarkMapper.addBookMark(userid,bid,chaid)>0?true:false) {
+			if(bookMarkMapper.addBookMark(userid,bid,chaid,new Date())>0?true:false) {
 				resultStatus=1;  //书签添加成功
 			} else{
 				resultStatus=0;  //添加失败

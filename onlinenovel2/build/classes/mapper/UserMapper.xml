@@ -20,7 +20,7 @@
 	</update>
 	
 	<update id="updateUser" parameterType="User">
-	update user set sex=#{sex},hobbys=#{hobbys},birthday=#{birthday},city=#{city},qq=#{qq},email=#{email} where userid=#{userid}
+	update user set sex=#{sex},hobbys=#{hobbys},birthday=date_format(#{birthday},'%Y-%m-%d'),city=#{city},qq=#{qq},email=#{email} where userid=#{userid}
 	</update>
 	
     <update id="updateRole"  parameterType="User">

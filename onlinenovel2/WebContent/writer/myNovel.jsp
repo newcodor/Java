@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
 <title>我的作品</title>
 </head>
 <style>
@@ -38,8 +38,8 @@ function  delNovel(){
  }
 </script>
 <body>
-<c:if test="${fromPage!=\"novelServlet\"}">
-  <jsp:forward page="../novelServlet?action=queryAll"></jsp:forward>
+<c:if test="${origin!=\"forward\"}">
+  <jsp:forward page="/novel/queryAll"></jsp:forward>
 </c:if>
  <div class="apply-main-text-wrap">
  <table class="table">
@@ -56,16 +56,16 @@ function  delNovel(){
      <c:forEach items="${novels}" var="novel">
      <tr>
          <span id="bid" style="display:none">${novel.bid}</span>
-     	<td><a   href="../detail.jsp?bid=${novel.bid}&action=query&fromPage=detail" target="mainFrame" >${novel.bookname}</a></td>
+     	<td><a   href="${pageContext.request.contextPath}/novel/query?bid=${novel.bid}&fromPage=detail" target="mainFrame" >${novel.bookname}</a></td>
      	<td>${novel.status}</td>
-     	<td><a  target="_self" href="novel_list.jsp?currentPage=1&bid=${novel.bid}">章节管理</a></td>
-     	<td><a href="../novelServlet?bid=${novel.bid}&action=query&fromPage=writer/updateNovel"   >修改</a></td>
-     	<td><a href="../novelServlet?bid=${novel.bid}&action=del"   onclick="return delNovel()">删除</a></td>
+     	<td><a  target="_self" href="${pageContext.request.contextPath}/novel/query?currentPage=1&bid=${novel.bid}&fromPage=writer/novel_list">章节管理</a></td>
+     	<td><a href="${pageContext.request.contextPath}/novel/query?bid=${novel.bid}&fromPage=writer/updateNovel"   >修改</a></td>
+     	<td><a href="${pageContext.request.contextPath}/novel/delete/${novel.bid}"   onclick="return delNovel()">删除</a></td>
      	<c:if test="${'已完本'!=novel.status}">
-     	<td><a  target="_self" href="../writer/addChapter.jsp?bid=${novel.bid}">发表章节</a></td>
+     	<td><a  target="_self" href="${pageContext.request.contextPath}/writer/addChapter.jsp?bid=${novel.bid}">发表章节</a></td>
      	</c:if>
      	<c:if test="${'已完本'!=novel.status}">
-     	<td><a href="../novelServlet?bid=${novel.bid}&action=finish" onclick="return finish()">完本</a></td>
+     	<td><a href="${pageContext.request.contextPath}/novel/finish/${novel.bid}" onclick="return finish()">完本</a></td>
      	</c:if>
      </tr>
      </c:forEach>

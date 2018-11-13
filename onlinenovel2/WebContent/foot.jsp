@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>页脚</title>
-<link rel="stylesheet" href="common/static/css/bootstrap.min.css">
-<link rel="stylesheet" href="common/static/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap-theme.min.css">
 </head>
 <style>
 .foot1{

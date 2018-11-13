@@ -11,7 +11,7 @@ public class Page {
 	private int beginIndex;  //开始索引
 	private boolean hasPrePage;  //上一页
 	private boolean hasNextPage; //下一页
-    private List list;
+    private List<?> list;
 	public Page() {
 		super();
 		// TODO Auto-generated constructor stub

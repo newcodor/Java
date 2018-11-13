@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
 <title>审核作者申请</title>
 </head>
 <style>
@@ -22,8 +22,8 @@
 }
 </style>
 <body>
-<c:if test="${fromPage!=\"novelApplyServlet\"}">
-  <jsp:forward page="../novelApplyServlet?action=queryAll"></jsp:forward>
+<c:if test="${origin!=\"forward\"}">
+  <jsp:forward page="${pageContext.request.contextPath}/novel/apply/queryall"></jsp:forward>
 </c:if>
  <div class="apply-list-wrap">
  <table class="table">
@@ -45,7 +45,7 @@
         <td>${status.index+1}</td>
      	<td>${reviewVo.username}</td>
      	<td>${reviewVo.bookname}</td>
-     	<td><a  target="_self" href="novelApplyServlet?action=query&rid=${reviewVo.rid}">审核</a></td>
+     	<td><a  target="_self" href="${pageContext.request.contextPath}/novel/apply/query?rid=${reviewVo.rid}">审核</a></td>
      	<td><c:choose>
      	<c:when test="${'waitpass'==reviewVo.reviewStatus}">
      	待审核

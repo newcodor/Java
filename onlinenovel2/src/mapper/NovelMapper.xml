@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ly.novel.dao.NovelMapper" >
-	<insert id="addNovel"  parameterType="Novel">
+   <resultMap type="NovelVo" id="novelVo">
+   	
+   </resultMap>
+
+	<insert id="addNovel"      parameterType="Novel" >
+	<selectKey keyProperty="bid"  resultType="Integer" order="AFTER">
+		SELECT LAST_INSERT_ID() as bid
+	</selectKey>
 		insert into book(userid,bookname,bookintroduction,cid,postip,posttime) 
 		values(#{userid},#{bookname},#{bookintroduction},#{cid},#{postip},#{posttime})
+	
 	</insert>
 	
 	<select id="queryAllNovels"  resultType="NovelVo">
-		select b.aid,c.categoryname,b.userid,u.username,ct.accessCount,ct.replyCount,v.voteCount,b.bookname,b.posttime from book b,user u,count ct,category c,vote v 
+		select b.bid,c.categoryname,b.userid,u.username,ct.accessCount,ct.replyCount,v.voteCount,b.bookname,b.posttime from book b,user u,count ct,category c,vote v 
 		 where b.bid=ct.bid and b.userid=u.userid and c.cid=b.cid and b.bid=v.bid 
 		 order by posttime desc
 	</select>
@@ -50,9 +58,9 @@
 	</delete>
 	
 	<select id="queryChaptersByPage"  resultType="Chapter">
-		select * from chapter    
+		select chaid,bid,title,contents,DATE_FORMAT(posttime,"%Y-%m-%d %H:%i:%s") as posttime from chapter    
 		where bid=#{bid} 
-		order by posttime asc limit #{beginIndex},#{everyPage}
+		order by posttime asc limit #{page.beginIndex},#{page.everyPage}
 	
 	</select>
 	
@@ -61,7 +69,7 @@
 	</select>
 	
 	<select id="queryAllBookSelfsByUserId" parameterType="Integer"  resultType="BookSelfVo">
-		select DISTINCT bs.userid,u.username,c.bid,b.bookname,c.chaid,c.title,c.posttime  
+		select DISTINCT bs.userid  as userid,u.username as username,c.bid as bid,b.bookname as bookname,c.chaid as chaid,c.title as title,c.posttime  as posttime
 		 from user u,book b,chapter c,bookself bs  
 		 where u.userid=b.userid  and b.bid=c.bid   
 		 and c.chaid in(select MAX(chaid) from 
@@ -159,10 +167,10 @@
 	<select id="querySearchNovelsByPage" resultType="NovelVo">
 	select b.bid,c.categoryname,b.userid,u.username,ct.accessCount,ct.replyCount,v.voteCount,b.bookname,b.posttime from book b,user u,count ct,category c,vote v  
 	 where b.bid=ct.bid and b.userid=u.userid and b.cid=c.cid and b.bid=v.bid  
-	 and  bookname like '%'#{keyword}'%' 
+	 and  bookname like  "%"#{keyword}"%" 
 	  union select b.bid,c.categoryname,b.userid,u.username,ct.accessCount,ct.replyCount,v.voteCount,b.bookname,b.posttime from book b,user u,count ct,category c,vote v   
 	    where b.bid=ct.bid and b.userid=u.userid and b.cid=c.cid and b.bid=v.bid  
-	    an d  u.username like '%'#{keyword}'%' 
+	    and  u.username like "%"#{keyword}"%" 
 	    order by posttime desc limit #{page.beginIndex},#{page.everyPage}
 	  
 	</select>

@@ -32,11 +32,11 @@ color: #FFFFFF;
 <div class="main_wrap">
 <c:if test="${sessionScope.user ==null}">
 <br>
-<span style="display: block;background-color: #428bca">本站评论需要登录&nbsp;&nbsp;|&nbsp; <a href="login.jsp"  target="_top">登录</a> &nbsp;|&nbsp; <a href="register.jsp" target="mainFrame">新用户注册</a>
+<span style="display: block;background-color: #428bca">本站评论需要登录&nbsp;&nbsp;|&nbsp; <a href="${pageContext.request.contextPath}/login.jsp"  target="_top">登录</a> &nbsp;|&nbsp; <a href="${pageContext.request.contextPath}/register.jsp" target="mainFrame">新用户注册</a>
 </span>
 <br>
 </c:if>
-<form action="replyAddServlet" method="post" >
+<form action="${pageContext.request.contextPath}/reply/add" method="post" >
 <table style="display: block;border:0px solid #fff;border-spacing:0px;border-color:#fff" id="post">
 <tr>
     <td style="disply:none;border:0px solid #fff"><input type="hidden" name="bid" id="bid" value="<c:choose><c:when test='${null!=novelVo}'>${novelVo.bid}</c:when><c:otherwise>0</c:otherwise></c:choose>"></td>

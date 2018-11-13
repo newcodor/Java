@@ -48,13 +48,13 @@ public class NovelServiceImpl implements NovelService {
 	public boolean addNovel(Novel novel) {
 		// TODO Auto-generated method stub\
 		boolean result=false;
-		int bid=0;
+		//int bid=0;
 		try{
 			
 //			JdbcUtil.beginTransaction();
-			bid=novelMapper.addNovel(novel);
-			countMapper.addCount(bid);
-			voteMapper.createVote(bid);
+			novelMapper.addNovel(novel);
+			countMapper.addCount(novel.getBid());
+			voteMapper.createVote(novel.getBid());
 //			JdbcUtil.commitTransaction();
 			result=true;
 		}catch(Exception e){

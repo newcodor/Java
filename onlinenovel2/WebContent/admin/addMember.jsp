@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../common/static/css/bootstrap.min.css" rel="stylesheet">
-<link href="../common/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <title>添加用户</title>
 <style type="text/css">
    .bg{
@@ -24,10 +24,10 @@
 }
 </style>
 </head>
-<script src="../common/static/js/jquery-3.2.1.min.js"></script>
-<script src="../common/static/js/bootstrap.js"></script>
-<script src="../common/static/js/bootstrap-datetimepicker.min.js"></script>
-<script src="../common/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript">
 $(document).ready(
 		   function(){
@@ -49,7 +49,7 @@ $("#birthday").datetimepicker({
 <div class="main-text-wrap">
 <center>
 <div class="form-inline">
-<form action="../userServlet"  method="post">
+<form action="${pageContext.request.contextPath}/user/add"  method="post">
 <table class="table" >
 	<thead >
 		<tr >
@@ -112,7 +112,6 @@ $("#birthday").datetimepicker({
 	</tr>
 	</tbody>
 </table>
-<input type="hidden" name="action" value="add">
 </form>
 </div>
 </center>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
 <title>作家申请</title>
 </head>
 <style>
@@ -55,13 +55,13 @@ function checkApplyInfo(){
 }
 </script>
 <body>
-<c:if test="${fromPage!=\"novelApplyServlet\"}">
-  <jsp:forward page="../novelApplyServlet?rid=${param.rid}&action=query"></jsp:forward>
+<c:if test="${origin!=\"forward\"}">
+  <jsp:forward page="${pageContext.request.contextPath}/novel/apply/query?rid=${param.rid}"></jsp:forward>
 </c:if>
 <center>
 <div class="apply-main-text-wrap">
 <h3><strong>审核申请</strong></h3>
-<form id="form1" action="novelApplyServlet" method="post" onsubmit="return checkApplyInfo()">
+<form id="form1" action="${pageContext.request.contextPath}/novel/apply/review" method="post" onsubmit="return checkApplyInfo()">
   <table class="table" >
   <tbody>
    <tr>
@@ -95,7 +95,6 @@ function checkApplyInfo(){
   <input type="hidden"  name="rid"  id="rid" value="${requestScope.reviewVo.rid}">
   <input type="hidden"  name="userid"  id="userid" value="${requestScope.reviewVo.userid}">
   <input type="hidden"  name="reviewStatus"  id="reviewStatus">
-  <input type="hidden"  name="action"  value="review">
 </form>
 </div>
 </center>

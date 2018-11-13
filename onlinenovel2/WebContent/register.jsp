@@ -54,10 +54,10 @@
   }
 </style>
 </head>
-<script src="common/static/js/jquery-3.2.1.min.js"></script>
-<script src="common/static/js/bootstrap.js"></script>
-<script src="common/static/js/bootstrap-datetimepicker.min.js"></script>
-<script src="common/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript">
 $(document).ready(
 		   function(){

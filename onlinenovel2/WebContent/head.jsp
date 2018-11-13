@@ -19,14 +19,13 @@
     </c:if>
 <div class="head">
 <div>
- <h1  align="left"><a  href="index.jsp" target="_top">求小说</a></h1>
+ <h1  align="left"><a  href="${pageContext.request.contextPath}/index.jsp" target="_top">求小说</a></h1>
  <ul style="list-style: none">
 </ul>
-<form action="novelQueryPageServlet" method="get" accept-charset="utf-8" class="navbar-form navbar-left" target="mainFrame">
+<form action="${pageContext.request.contextPath}/novel/search" method="get" accept-charset="utf-8" class="navbar-form navbar-left" target="mainFrame">
 	      <div class="form-group">
 		       <input type="text" class="form-control" name="keyword" placeholder="输入书名或作者回车">
 		       <input type="hidden"  name="fromPage" value="search">
-		       <input type="hidden"  name="action" value="search">
 		     </div>
 		</form>
 		
@@ -35,7 +34,7 @@
 <ul class="nav navbar-nav">
 <c:forEach items="${requestScope.categorys}" var="category">
 <li>
-<a href="novelQueryPageServlet?cid=${category.cid}&categoryname=${category.categoryname}&action=category&fromPage=category" target="mainFrame">${category.categoryname}</a>
+<a href="${pageContext.request.contextPath}/novel/category/query?cid=${category.cid}&categoryname=${category.categoryname}&fromPage=category" target="mainFrame">${category.categoryname}</a>
 
 </li>
 </c:forEach>
@@ -49,18 +48,18 @@
  <p align="right">
  <c:if test="${sessionScope.user != null}">
  <a href="user/user.jsp" title="个人中心" target="mainFrame">个人中心</a> |
- <a href="bookself.jsp" title="我的书架" target="mainFrame">我的书架 </a>|
-  <a href="bookmark.jsp" title="我的书签" target="mainFrame">我的书签</a> |
+ <a href="${pageContext.request.contextPath}/user/bookself/list" title="我的书架" target="mainFrame">我的书架 </a>|
+  <a href="${pageContext.request.contextPath}/user/bookmark/list" title="我的书签" target="mainFrame">我的书签</a> |
  </c:if>
  <c:choose>
    <c:when test="${sessionScope.user == null}">
-<a href="login.jsp" target="_top">登录</a>&nbsp;&nbsp;&nbsp;
-<a href="register.jsp" target="mainFrame">注册</a>
+<a href="${pageContext.request.contextPath}/login.jsp" target="_top">登录</a>&nbsp;&nbsp;&nbsp;
+<a href="${pageContext.request.contextPath}/register.jsp" target="mainFrame">注册</a>
    </c:when>
    <c:otherwise>
   欢迎您,用户: ${sessionScope.user.username}
   &nbsp;&nbsp;
-  <a target="mainFrame" href="logoutServlet">注销</a>
+  <a target="_top" href="${pageContext.request.contextPath}/logout">注销</a>
    </c:otherwise>
  </c:choose>
  </p>

@@ -6,8 +6,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="common/static/css/bootstrap.min.css">
-<link rel="stylesheet" href="common/static/css/head.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/head.css">
 <title>用户登录</title>
 <style>
  .login{
@@ -90,13 +90,13 @@
  </c:if>
  <c:choose>
    <c:when test="${sessionScope.user == null}">
-<a href="login.jsp" target="mainFrame">登录</a>&nbsp;&nbsp;&nbsp;
-<a href="register.jsp" target="mainFrame">注册</a>
+<a href="${pageContext.request.contextPath}/login.jsp" target="mainFrame">登录</a>&nbsp;&nbsp;&nbsp;
+<a href="${pageContext.request.contextPath}/register.jsp" target="mainFrame">注册</a>
    </c:when>
    <c:otherwise>
   欢迎您,用户: ${sessionScope.user.username}
   &nbsp;&nbsp;
-  <a target="mainFrame" href="logoutServlet">注销</a>
+  <a target="mainFrame" href="${pageContext.request.contextPath}/logout">注销</a>
    </c:otherwise>
  </c:choose>
  </p>
@@ -108,7 +108,7 @@
 <br>
 
 <div class="login" style="text-align: center">
-<form action="userLoginServlet" method="post"  onsubmit="return checkLoginInfo()">
+<form action="${pageContext.request.contextPath}/login" method="post"  onsubmit="return checkLoginInfo()">
 <center>
 <table   class="border">
 	<thead>

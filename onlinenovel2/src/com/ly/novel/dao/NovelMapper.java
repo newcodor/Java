@@ -22,7 +22,7 @@ public interface NovelMapper {
 
 	List<Integer> queryNovelBidByUid(int userid);
 
-	int addNovel(Novel novel);
+	Integer addNovel(Novel novel);
 
 	List<NovelVo> queryNovelsByPage(@Param("page") Page page,@Param("keyword") String keyword,@Param("cid") int cid);
 
@@ -58,7 +58,7 @@ public interface NovelMapper {
 
 	int addBookSelf(@Param("userid") int userid,@Param("bid") int bid);
 
-	List<NovelVo> queryCategoryNovelsByCid(@Param("page") Page page,@Param("chaid") int cid);
+	List<NovelVo> queryCategoryNovelsByCid(@Param("page") Page page,@Param("cid") int cid);
 
 	List<NovelVo> querySearchNovelsByPage(@Param("page") Page page,@Param("keyword") String keyword);
 

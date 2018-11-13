@@ -1,12 +1,14 @@
 <%@ page language="java"  contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="common/static/css/bootstrap.min.css">
-<link rel="stylesheet" href="common/static/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap-theme.min.css">
 <title>小说</title>
 <style type="text/css">
 
@@ -38,15 +40,15 @@
 
 </head>
 <body >
-    <c:if test="${from!=\"novelQueryPageServlet\"}">
+    <c:if test="${origin!=\"forward\"}">
     <%request.setCharacterEncoding("utf-8"); %>
-        <jsp:forward page="novelQueryPageServlet?currentPage=1&action=search&fromPage=search&keyword=${keyword}"></jsp:forward>
+        <jsp:forward page="${pageContext.request.contextPath}/novel/search?currentPage=1&fromPage=search&keyword=${keyword}"></jsp:forward>
     </c:if>
     
 <div class="main-text-wrap,bgmain" style="text-align: center">
 <center>
 <c:if test="${null!=keyword }">
-<span style="text-align: left"> 共找到 ${page.list.size()} 本包含" ${keyword} "的作品</span>
+<span style="text-align: left"> 共找到  ${page.list.size()} 本包含 " ${keyword} " 的作品</span>
 </c:if>
 <table  class="table table-hover  table-condensed">
  <thead>
@@ -65,11 +67,11 @@
   <c:forEach items="${requestScope.page.list}"  var="novelVo" varStatus="status">
   <tr>
   	<td >${novelVo.categoryname }</td>
-  	<td style="text-align: left"><a href="detail.jsp?bid=${novelVo.bid}&fromPage=detail" target="mainFrame">${novelVo.bookname}</a></td>
+  	<td style="text-align: left"><a href="${pageContext.request.contextPath}/novel/query?bid=${novelVo.bid}&fromPage=detail" target="mainFrame">${novelVo.bookname}</a></td>
   	<td >${novelVo.username }</td>
   	<td>${novelVo.accessCount}</td>
   	<td>${novelVo.voteCount}</td>
-  	<td>${novelVo.posttime }</td>
+  	<td><fmt:formatDate value="${novelVo.posttime }"  pattern="yyyy-MM-dd"/></td>
   </tr>
   </c:forEach>
   </c:when>

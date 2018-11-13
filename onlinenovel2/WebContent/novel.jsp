@@ -1,12 +1,13 @@
 <%@ page language="java"  contentType="text/html; charset=UTF-8"
       pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="common/static/css/bootstrap.min.css">
-<link rel="stylesheet" href="common/static/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap-theme.min.css">
 <title>小说</title>
 <style type="text/css">
 
@@ -40,7 +41,7 @@
 <body >
 <%--     <c:if test="${origin!=\"forward\"}">
     <%request.setCharacterEncoding("utf-8"); %>
-        <jsp:forward page="novelQueryPageServlet?currentPage=1&action=queryAll&fromPage=novel"></jsp:forward>
+        <jsp:forward page="/novel/list?currentPage=1&fromPage=novel"></jsp:forward>
     </c:if> --%>
         <c:if test="${origin!=\"forward\"}">
     <%request.setCharacterEncoding("utf-8"); %>
@@ -65,11 +66,11 @@
   <c:forEach items="${requestScope.page.list}"  var="novelVo" varStatus="status">
   <tr>
   	<td >${novelVo.categoryname }</td>
-  	<td style="text-align: left"><a href="novelQueryServlet?bid=${novelVo.bid}&action=query&fromPage=detail" target="mainFrame">${novelVo.bookname}</a></td>
+  	<td style="text-align: left"><a href="${pageContext.request.contextPath}/novel/query?bid=${novelVo.bid}&fromPage=detail" target="mainFrame">${novelVo.bookname}</a></td>
   	<td >${novelVo.username }</td>
   	<td>${novelVo.accessCount}</td>
   	<td>${novelVo.voteCount}</td>
-  	<td>${novelVo.posttime }</td>
+  	<td><fmt:formatDate value="${novelVo.posttime }"  pattern="yyyy-MM-dd"/></td>
   </tr>
   </c:forEach>
   </c:when>
@@ -90,12 +91,12 @@
     	 首页
     	</c:when>
     	<c:otherwise>
-    	<a href="novelQueryPageServlet?currentPage=1&action=queryAll&fromPage=novel">首页</a>
+    	<a href="${pageContext.request.contextPath}/novel/list?currentPage=1&fromPage=novel">首页</a>
     	</c:otherwise>
     	</c:choose>
     	<c:choose>
     	<c:when test="${page.hasPrePage}">
-    	<a href="novelQueryPageServlet?currentPage=${page.currentPage-1}&action=queryAll&fromPage=novel">上一页</a>
+    	<a href="${pageContext.request.contextPath}/novel/list?currentPage=${page.currentPage-1}&fromPage=novel">上一页</a>
     	</c:when>
     	<c:otherwise>
     	上一页
@@ -106,7 +107,7 @@
     	</c:if>
     	<c:choose>
     	<c:when test="${page.hasNextPage}">
-    	<a href="novelQueryPageServlet?currentPage=${page.currentPage+1}&action=queryAll&fromPage=novel">下一页</a>
+    	<a href="${pageContext.request.contextPath}/novel/list?currentPage=${page.currentPage+1}&fromPage=novel">下一页</a>
     	</c:when>
     	<c:otherwise>
     	下一页
@@ -117,7 +118,7 @@
     	末页
     	</c:when>
     	<c:otherwise>
-    	<a href="novelQueryPageServlet?currentPage=${page.totalPage}&action=queryAll&fromPage=novel">末页</a>
+    	<a href="${pageContext.request.contextPath}/novel/list?currentPage=${page.totalPage}&fromPage=novel">末页</a>
     	</c:otherwise>
     	</c:choose>
     	</center>

@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="common/static/css/bootstrap.min.css" rel="stylesheet">
-<link href="common/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <title>个人资料</title>
 <style type="text/css">
    .bg{
@@ -25,10 +27,10 @@
 }
 </style>
 </head>
-<script src="common/static/js/jquery-3.2.1.min.js"></script>
-<script src="common/static/js/bootstrap.js"></script>
-<script src="common/static/js/bootstrap-datetimepicker.min.js"></script>
-<script src="common/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
 <script type="text/javascript">
 $(document).ready(
 		   function(){
@@ -47,13 +49,13 @@ $("#birthday").datetimepicker({
 		   });
 </script>
 <body class="bg">
-<c:if test="${param.from!=\"userServlet\"}">
-  <jsp:forward page="userServlet?action=query&fromPage=userInfo"></jsp:forward>
+<c:if test="${origin!=\"forward\"}">
+  <jsp:forward page="/user/query?fromPage=user/userInfo"></jsp:forward>
 </c:if>
 <div class="main-text-wrap">
 <center>
 <div class="form-inline">
-<form action="userServlet"  method="post">
+<form action="${pageContext.request.contextPath}/user/update"  method="post">
 <table class="table" >
 	<thead >
 		<tr >
@@ -85,7 +87,7 @@ $("#birthday").datetimepicker({
 	</tr>
 	<tr>
 		<td>生日:</td>
-		<td><input type="text" class="form-control"  id="birthday" name="birthday" value="<c:if test='${null!=requestScope.currentUser}'>${requestScope.currentUser.birthday}</c:if>"></td>
+		<td><input type="text" class="form-control"  id="birthday" name="birthday" value="<c:if test='${null!=requestScope.currentUser}'><fmt:formatDate value="${requestScope.currentUser.birthday}"  pattern="yyyy-MM-dd"/></c:if>"></td>
 	</tr>
 	<tr>
 		<td>所在城市:</td>
@@ -112,7 +114,6 @@ $("#birthday").datetimepicker({
 	</tr>
 	</tbody>
 </table>
-<input type="hidden" name="action" value="update">
 <input type="hidden" name="fromPage" value="userInfo">
 </form>
 </div>

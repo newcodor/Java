@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../common/static/css/bootstrap.min.css">
-<link rel="stylesheet" href="../common/static/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap-theme.min.css">
 <title>小说列表</title>
 <style>
     .main-list{
@@ -22,8 +23,8 @@
 </style>
 </head>
 <body>
-<c:if test="${from!=\"novelQueryServlet\"}">
-  <jsp:forward page="../novelQueryServlet?currentPage=${param.currentPage}&action=query&bid=${param.bid}&fromPage=writer/novel_list"></jsp:forward>
+<c:if test="${origin!=\"forward\"}">
+  <jsp:forward page="/novel/query?currentPage=${param.currentPage}&bid=${param.bid}&fromPage=writer/novel_list"></jsp:forward>
 </c:if>
 <br>
 <left><button style="margin-left:5px" onclick="window.history.back()"  class="btn btn-primary">返回</button></left>
@@ -40,10 +41,10 @@
   <c:when test="${requestScope.page.list.size()>0}">
   <c:forEach items="${requestScope.page.list}"  var="chapter" varStatus="status">
   <tr>
-  	<td style="text-align: left"><a href="../chapter.jsp?bid=${chapter.bid}&chaid=${chapter.chaid}&fromPage=chapter" target="_blank">${chapter.title}</a></td>
-  	<td>${chapter.posttime }</td>
-  	<td><a href="../chapterServlet?bid=${chapter.bid}&chaid=${chapter.chaid}&action=query&fromPage=writer/editChapter">修改</a></td>
-  	<td><a href="../chapterServlet?currentPage=${page.currentPage}&bid=${chapter.bid}&chaid=${chapter.chaid}&action=del&fromPage=writer/editChapter">删除</a></td>
+  	<td style="text-align: left"><a href="${pageContext.request.contextPath}/chapter/read/${chapter.bid}/${chapter.chaid}.html" target="_blank">${chapter.title}</a></td>
+  	<td><fmt:formatDate value="${chapter.posttime }"  pattern="yyyy-MM-dd HH:mm"/></td>
+  	<td><a href="${pageContext.request.contextPath}/chapter/query/${chapter.bid}/${chapter.chaid}?fromPage=writer/editChapter">修改</a></td>
+  	<td><a href="${pageContext.request.contextPath}/chapter/delete?currentPage=${page.currentPage}&bid=${chapter.bid}&chaid=${chapter.chaid}&fromPage=writer/novel_list">删除</a></td>
   </tr>
   </c:forEach>
   </c:when>

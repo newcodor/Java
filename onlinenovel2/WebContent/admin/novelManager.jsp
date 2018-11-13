@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
 <title>小说管理</title>
 </head>
 <style type="text/css">
@@ -31,7 +32,11 @@ function  delNovel(){
      return false;
  }
 </script>
+
 <body class="bg">
+<c:if test="${origin!=\"forward\"}">
+   <jsp:forward page="/novel/manageall"></jsp:forward>
+</c:if>
 <center>
 <strong class="h2">小说管理</strong>
 <div class="main-novelList-wrap">
@@ -55,16 +60,16 @@ function  delNovel(){
   <c:forEach items="${requestScope.page.list}"  var="novelVo" varStatus="status">
   <tr>
      <td >${novelVo.bid }</td>
-  	<td style="text-align: center"><a href="detail.jsp?bid=${novelVo.bid}&fromPage=detail" target="_blank">${novelVo.bookname}</a></td>
+  	<td style="text-align: center"><a href="${pageContext.request.contextPath}/novel/query?bid=${novelVo.bid}&fromPage=detail" target="_blank">${novelVo.bookname}</a></td>
   	<td>${novelVo.username }</td>
   	<td>${novelVo.categoryname }</td>
   	<td>
-  	<a href="novelServlet?bid=${novelVo.bid}&action=query&fromPage=admin/updateNovel"  title="修改小说"  >修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
-  	<a href="novelServlet?bid=${novelVo.bid}&action=del" title="删除小说"  onclick="return delNovel()">删除</a>
+  	<a href="${pageContext.request.contextPath}/novel/query?bid=${novelVo.bid}&fromPage=admin/updateNovel"  title="修改小说"  >修改</a>&nbsp;&nbsp;&nbsp;&nbsp;
+  	<a href="${pageContext.request.contextPath}/novel/delete/${novelVo.bid}?fromPage=admin/novelManager" title="删除小说"  onclick="return delNovel()">删除</a>
   	</td>
   	<td>${novelVo.accessCount}</td>
   	<td>${novelVo.voteCount}</td>
-  	<td>${novelVo.posttime }</td>
+  	<td><fmt:formatDate value="${novelVo.posttime }" pattern="yyyy-MM-dd"/></td>
   </tr>
   </c:forEach>
   </c:when>
@@ -85,12 +90,12 @@ function  delNovel(){
     	 首页
     	</c:when>
     	<c:otherwise>
-    	<a href="novelServlet?action=manageAll&currentPage=1&from=admin">首页</a>
+    	<a href="${pageContext.request.contextPath}/novel/manageall?currentPage=1&from=admin">首页</a>
     	</c:otherwise>
     	</c:choose>
     	<c:choose>
     	<c:when test="${page.hasPrePage}">
-    	<a href="novelServlet?action=manageAll&currentPage=${page.currentPage-1}&from=admin">上一页</a>
+    	<a href="${pageContext.request.contextPath}/novel/manageall?currentPage=${page.currentPage-1}&from=admin">上一页</a>
     	</c:when>
     	<c:otherwise>
     	上一页
@@ -101,7 +106,7 @@ function  delNovel(){
     	</c:if>
     	<c:choose>
     	<c:when test="${page.hasNextPage}">
-    	<a href="novelServlet?action=manageAll&currentPage=${page.currentPage+1}&from=admin">下一页</a>
+    	<a href="${pageContext.request.contextPath}/novel/manageall?currentPage=${page.currentPage+1}&from=admin">下一页</a>
     	</c:when>
     	<c:otherwise>
     	下一页
@@ -112,7 +117,7 @@ function  delNovel(){
     	末页
     	</c:when>
     	<c:otherwise>
-    	<a href="novelServlet?action=manageAll&currentPage=${page.totalPage}">末页</a>
+    	<a href="${pageContext.request.contextPath}/novel/manageall?currentPage=${page.totalPage}">末页</a>
     	</c:otherwise>
     	</c:choose>
     	</center>

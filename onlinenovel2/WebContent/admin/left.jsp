@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="../common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
 <title>Insert title here</title>
 </head>
 <style type="text/css">
@@ -20,7 +20,7 @@
 <body  class="bg text-center" >
 <ul  class="nav" >
 <li >
-	<a href="../index.jsp" title="首页" target="_blank">首页</a>
+	<a href="${pageContext.request.contextPath}/index.jsp" title="首页" target="_blank">首页</a>
  </li>
  <li >
 	<a href="updateAdmin.jsp" title="修改密码" target="mainFrame">修改密码</a>
@@ -30,8 +30,8 @@
          <div class="treeshow"  >
              <span  style="color:#1E90FF">小说管理</span>
              <table style="display:none;margin-left:45%;">
-                 <tr><td><a href="../novelServlet?action=manageAll" title="管理小说" target="mainFrame">管理小说</a><td></tr>
-                 <tr><td><a href="../novelApplyServlet?action=queryAll" title="审核作者申请" target="mainFrame">审核作者申请</a><td></tr>
+                 <tr><td><a href="${pageContext.request.contextPath}/novel/manageall" title="管理小说" target="mainFrame">管理小说</a><td></tr>
+                 <tr><td><a href="${pageContext.request.contextPath}/novel/apply/queryall" title="审核作者申请" target="mainFrame">审核作者申请</a><td></tr>
              </table>
          </div>
 </li>
@@ -40,24 +40,24 @@
          <div class="treeshow" >
              <span  style="color:#1E90FF">用户管理</span>
              <table style="display:none;margin-left:45%;">
-                 <tr ><td><a href="../userServlet?action=queryAll" title="管理用户" target="mainFrame">管理用户</a><td></tr>
+                 <tr ><td><a href="${pageContext.request.contextPath}/user/queryall" title="管理用户" target="mainFrame">管理用户</a><td></tr>
                  <tr ><td><a href="addMember.jsp" title="添加用户" target="mainFrame">添加用户</a><td></tr>
              </table>
          </div>
 </li>
 <li >
-    <a href="../novelCategoryServlet?action=queryAll&fromPage=admin/category" title="管理分类" target="mainFrame">分类管理</a>
+    <a href="${pageContext.request.contextPath}/category/list?&fromPage=admin/category" title="管理分类" target="mainFrame">分类管理</a>
 </li>
 <li>
 <a href="main.jsp" title="系统配置信息" target="mainFrame">系统配置信息</a>
 </li>
 
 <li>
-<a href="../logoutServlet"  title="重新登录" target="_parent" onclick="return logout()">重新登录</a>
+<a href="${pageContext.request.contextPath}/logout"  title="重新登录" target="_parent" onclick="return logout()">重新登录</a>
 </li>
 </ul>
-<script src="../common/static/js/jquery-3.2.1.min.js"></script>
- <script src="../common/static/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>
+ <script src="${pageContext.request.contextPath}/common/static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(function(){
         $(".treeshow").on("click",function(){

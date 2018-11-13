@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../common/static/css/bootstrap.min.css">
-<link rel="stylesheet" href="../common/static/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap-theme.min.css">
 <title>头部</title>
 </head>
 <style type="text/css">
@@ -20,7 +20,7 @@
      <dd>
     <div  class="text-right">
     <strong>欢迎管理员:${sessionScope.admin.username}</strong> 
-    <a href="../logoutServlet" target="_parent"  wt-tracker="Header|Menu|Goto Apply"><strong>注销</strong></a>
+    <a href="${pageContext.request.contextPath}/logout" target="_parent"  wt-tracker="Header|Menu|Goto Apply"><strong>注销</strong></a>
     <h1 align="center" color="#F5DEB3">小 说 网 站 管 理 后 台</h1>
     </div>
     </dd>

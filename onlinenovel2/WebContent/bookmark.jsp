@@ -18,13 +18,13 @@
 }
 
 </style>
-<script src="common/static/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>
 <body>
-<c:if test="${fromPage!=\"bookMarkServlet\"}">
-  <jsp:forward page="bookMarkServlet?action=query"></jsp:forward>
+<c:if test="${origin!=\"forward\"}">
+  <jsp:forward page="${pageContext.request.contextPath}/user/bookmark/list"></jsp:forward>
 </c:if>
 <div>
-<form action="bookMarkServlet?action=del" method="post" onsubmit="return checkSelectedData()">
+<form action="${pageContext.request.contextPath}/user/bookmark/delete" method="post" onsubmit="return checkSelectedData()">
   <div class="main-text-wrap">
   <p>下面是您添加的书签</p>
   <center>
@@ -42,8 +42,8 @@
   <c:when test="${null!=requestScope.bookMarkVos}">
      <c:forEach items="${requestScope.bookMarkVos}"  var="bookMarkVo" >
         <tr>
-        	<td><input type="checkbox" name="selecedNovel" value="${bookMarkVo.bid}">&nbsp;&nbsp;&nbsp;<a href="detail.jsp?bid=${bookMarkVo.bid}&fromPage=detail" target="_blank">${bookMarkVo.bookname}</a></td>
-        	<td><a href="chapter.jsp?bid=${bookMarkVo.bid}&chaid=${bookMarkVo.chaid}&fromPage=chapter" target="_blank">${bookMarkVo.title}</a></td>
+        	<td><input type="checkbox" name="selecedNovel" value="${bookMarkVo.bid}">&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/novel/query?bid=${bookMarkVo.bid}&fromPage=detail" target="_blank">${bookMarkVo.bookname}</a></td>
+        	<td><a href="${pageContext.request.contextPath}/chapter/read/${bookMarkVo.bid}/${bookMarkVo.chaid}.html" target="_blank">${bookMarkVo.title}</a></td>
         	<td>${bookMarkVo.username}</td>
         	<td>${bookMarkVo.addTime}</td>
         </tr>

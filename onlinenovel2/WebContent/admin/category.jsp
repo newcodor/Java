@@ -6,8 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="common/static/css/bootstrap.min.css" rel="stylesheet">
-<link href="common/static/css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/common/static/css/style.css" rel="stylesheet">
 <title>分类管理</title>
 </head>
 <style type="text/css">
@@ -32,11 +32,10 @@
 </div>
 <br>
 <br>
-<form  action="novelCategoryServlet"  method="post">
+<form  action="${pageContext.request.contextPath}/category/add"  method="post">
 <div class="form-inline">
     <lable>分类: </lable >
     <input      class="form-control"  type="text" name="categoryname">
-    <input type="hidden"  name="action" value="add"> 
      <input   class="btn btn-primary"  type="submit" value="添加">
 </div>
 </form>
@@ -55,7 +54,7 @@
          <tr>
          	<td><center>${status.index+1}</center></td>
          	<td><center>${category.categoryname}</center></td>
-         	<td><center><a href="novelCategoryServlet?cid=${category.cid}&action=del">删除</a></center></td>
+         	<td><center><a href="${pageContext.request.contextPath}/category/delete/${category.cid}">删除</a></center></td>
          </tr>
        </c:forEach>
     </c:when>

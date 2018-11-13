@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" href="../common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
 <title>修改密码</title>
 </head>
 <style type="text/css">
@@ -15,8 +15,8 @@
          .yellow_right_icon{width:18px;height:18px;margin:0 5px -5px;background-position:center center;}
 	
 </style>
-<script src="../common/static/js/jquery-3.2.1.min.js"></script>  
- <script src="../common/static/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/common/static/js/jquery-3.2.1.min.js"></script>  
+ <script src="${pageContext.request.contextPath}/common/static/js/bootstrap.min.js"></script>
 <script>
 function checkid(){
 var id=document.form1.id.value;
@@ -62,7 +62,7 @@ $.post("checkAdminInfo.jsp", { checkid: username } ,function(msg){
  </script>
 <body>
 <div class="container">
-<form name="form1"  class="form-signin" method="post" action="../adminServlet" onsubmit="return check()">
+<form name="form1"  class="form-signin" method="post" action="${pageContext.request.contextPath}/admin/updatepass" onsubmit="return check()">
 <div class="panel panel-default">
 <div class="panel-body"> 
   <div class="form-group">
@@ -86,7 +86,6 @@ $.post("checkAdminInfo.jsp", { checkid: username } ,function(msg){
 </div>
 </div>
 <br>
-<input type="hidden"  name="action" value="updatePass">
  <button class="btn btn-lg btn-primary btn-block"  id="btn_jump" data-loading-text="更新中....." type="submit">更新</button>
 </div>
 </div>                       

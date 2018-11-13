@@ -5,12 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../common/static/css/bootstrap.min.css">
-<link rel="stylesheet" href="../common/static/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap-theme.min.css">
 <title>登录</title></head>
 <body>
 <div class="container">
-<form name="form1" class="form-signin" method="post" action="../adminLoginServlet" onsubmit="return check()">
+<form name="form1" class="form-signin" method="post" action="${pageContext.request.contextPath}/admin/login" onsubmit="return check()">
 <div class="panel panel-default">
 <div class="panel-heading"><center><strong>网站管理登录</strong></center></div>
 <div class="panel-body">

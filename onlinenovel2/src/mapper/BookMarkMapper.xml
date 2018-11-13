@@ -9,8 +9,8 @@
 	
 	<delete id="delBookMarks"   >
 	delete from bookmark where userid=#{userid} and bid 
-	<foreach collection="array"  item="bids"  open="in (" close=")" separator=",">
-     #{bids}
+	<foreach collection="bids"  item="bid"  open="in (" close=")" separator=",">
+     #{bid}
 	</foreach>
 	</delete>
 	
@@ -28,7 +28,7 @@
 	</select>
 	
 	<delete id="delBookMarkById">
-	delete from bookmark  where bid=#{bid] and chaid=#{chaid}
+	delete from bookmark  where bid=#{bid} and chaid=#{chaid}
 	</delete>
 	
 	<delete id="delBookMarkByBid"  parameterType="Integer">
