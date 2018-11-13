@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -9,46 +9,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/common/static/css/head.css">
 <title>用户登录</title>
-<style>
- .login{
-  font-family: Microsoft Yahei, sans-serif;
-  
-  }
-  .login input[type="text"],input[type="password"]{
-  overflow:hidden;
-  line-height: 20px;
-  border: 1px solid #DBDBDB;
-  border-radius:3px;
-  }
-  .login a{
-  text-decoration: none;
-  }
-  .login .button{
-  
-  border: 1px solid;
-  display: block;
-  background-color: #337ab7;
-  border-color: #2e6da4;
-  color:#fff;
-  border-radius: 6px;
-  width: 75px;
-  line-height: 30px;
-  font-size: 20px;
-  font-family: 'Microsoft YaHei';
-  outline: none;
-  
-}
-  
-  .login .border{
-  background-color:	#7AC5CD;
-  border:solid thin #98F5FF;
-  border-spacing:10px 30px;
-  border-radius:6px;
-  padding: 20px;
-  text-align:center;
-  }
-  
-</style>
+
 
 </head>
 <script type="text/javascript">
@@ -107,31 +68,42 @@
 </div>
 <br>
 
-<div class="login" style="text-align: center">
+<div class="container" >
 <form action="${pageContext.request.contextPath}/login" method="post"  onsubmit="return checkLoginInfo()">
-<center>
-<table   class="border">
-	<thead>
-		<tr>
-		<th colspan="2"><h1><strong>用户登录</strong></h1></th>
-		</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<td>用户名:</td>
-		<td><input type="text" id="userName" name="userName" placeholder="请输入用户名" ></td>
-	</tr>
-	<tr>
-		<td>密码:</td>
-		<td><input type="password" id="password" name="password"  placeholder="请输入密码"></td>
-	</tr>
-	<tr>
-		<td><input type="submit" name="submit" value="登录"  class="button"  ></td>
-		<td><a href="register.jsp"  target="_top">新用户注册</a></td>
-	</tr>
-	</tbody>
-</table>
-</center>
+
+
+<div class="row" >
+  <div class="form-group">
+    <label for="username" class="col-sm-4 control-label"  style="text-align: right">用户名</label>
+    <div class="col-sm-4">
+      <input type="text" class="form-control" id="userName"  name="userName" placeholder="请输入用户名">
+    </div>
+  </div>
+  </div>
+  <br/>
+  <div class="row" >
+  <div class="form-group">
+    <label for="password" class="col-sm-4 control-label"  style="text-align: right">密码</label>
+    <div class="col-sm-4">
+      <input type="password" class="form-control" id="password"  name="password" placeholder="请输入密码">
+    </div>
+  </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-4">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox">请记住我
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-8">
+      <button type="submit" class="btn btn-info">登录</button>
+    </div>
+  </div>
+
 </form>
 </div>
 </body>
